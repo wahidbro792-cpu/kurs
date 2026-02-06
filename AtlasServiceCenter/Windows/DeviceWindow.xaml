@@ -1,0 +1,101 @@
+﻿<Window x:Class="AtlasServiceCenter.Windows.DeviceWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Устройство"
+        Height="340"
+        Width="440"
+        WindowStartupLocation="CenterOwner"
+        Background="{StaticResource LightBackgroundBrush}">
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Карточка устройства -->
+        <Border Grid.Row="0"
+                Background="{StaticResource CardBackgroundBrush}"
+                CornerRadius="6"
+                Padding="10"
+                Margin="0,0,0,10">
+            <StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                    <TextBlock Text="Тип:"
+                               Width="110"
+                               VerticalAlignment="Center"/>
+                    <ComboBox x:Name="DeviceTypeBox"
+                              Width="250"
+                              IsEditable="True"
+                              IsTextSearchEnabled="True"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                    <TextBlock Text="Бренд:"
+                               Width="110"
+                               VerticalAlignment="Center"/>
+                    <ComboBox x:Name="BrandBox"
+                              Width="250"
+                              IsEditable="True"
+                              IsTextSearchEnabled="True"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                    <TextBlock Text="Модель:"
+                               Width="110"
+                               VerticalAlignment="Center"/>
+                    <TextBox x:Name="ModelBox"
+                             Width="250"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                    <TextBlock Text="Серийный №:"
+                               Width="110"
+                               VerticalAlignment="Center"/>
+                    <TextBox x:Name="SerialBox"
+                             Width="250"/>
+                </StackPanel>
+
+                <TextBlock Text="Заметки:"
+                           Margin="0,5,0,2"/>
+                <TextBox x:Name="NotesBox"
+                         Height="90"
+                         AcceptsReturn="True"
+                         TextWrapping="Wrap"
+                         VerticalScrollBarVisibility="Auto"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Нижняя панель кнопок -->
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+
+            <!-- Сохранить -->
+            <Button Width="120"
+                    Margin="0,0,10,0"
+                    Style="{StaticResource GoldButtonStyle}"
+                    Click="SaveButton_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Icons/save.png"
+                           Width="16" Height="16"
+                           Margin="0,0,6,0"/>
+                    <TextBlock Text="Сохранить"/>
+                </StackPanel>
+            </Button>
+
+            <!-- Отмена -->
+            <Button Width="120"
+                    Style="{StaticResource GoldButtonStyle}"
+                    Click="CancelButton_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Icons/edit.png"
+                           Width="16" Height="16"
+                           Margin="0,0,6,0"/>
+                    <TextBlock Text="Отмена"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

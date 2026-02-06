@@ -1,0 +1,144 @@
+﻿<UserControl x:Class="AtlasServiceCenter.Pages.SettingsPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок -->
+        <TextBlock Grid.Row="0"
+                   Text="Настройки"
+                   FontSize="22"
+                   FontWeight="Bold"
+                   Margin="0,0,0,10"/>
+
+        <!-- Вкладки настроек -->
+        <Border Grid.Row="1"
+                BorderBrush="#DDD"
+                BorderThickness="1"
+                CornerRadius="4"
+                Background="{DynamicResource CardBackgroundBrush}">
+            <TabControl Margin="5">
+                <!-- Вкладка 1: статусы заказов -->
+                <TabItem Header="Статусы заказов">
+                    <Grid Margin="5">
+                        <GroupBox Header="Статусы заказов">
+                            <DockPanel Margin="5">
+                                <StackPanel DockPanel.Dock="Top"
+                                            Orientation="Horizontal"
+                                            Margin="0,0,0,5">
+                                    <Button Content="Добавить статус"
+                                            Width="150"
+                                            Margin="0,0,10,0"
+                                            Click="AddStatusButton_Click"
+                                            Style="{DynamicResource GoldButtonStyle}"/>
+                                    <TextBlock Text="Изменяйте название и порядок прямо в таблице."
+                                               VerticalAlignment="Center"
+                                               Foreground="Gray"/>
+                                </StackPanel>
+
+                                <DataGrid x:Name="StatusesGrid"
+                                          AutoGenerateColumns="False"
+                                          CanUserAddRows="False"
+                                          IsReadOnly="False">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="ID"
+                                                            Binding="{Binding StatusId}"
+                                                            IsReadOnly="True"
+                                                            Width="60"/>
+                                        <DataGridTextColumn Header="Название"
+                                                            Binding="{Binding Name}"
+                                                            Width="*"/>
+                                        <DataGridTextColumn Header="Порядок"
+                                                            Binding="{Binding OrderIndex}"
+                                                            Width="100"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </DockPanel>
+                        </GroupBox>
+                    </Grid>
+                </TabItem>
+
+                <!-- Вкладка 2: справочники устройств и брендов -->
+                <TabItem Header="Устройства и бренды">
+                    <Grid Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Типы устройств -->
+                        <GroupBox Header="Типы устройств"
+                                  Grid.Column="0"
+                                  Margin="0,0,5,0">
+                            <DataGrid x:Name="DeviceTypesGrid"
+                                      Margin="5"
+                                      AutoGenerateColumns="False"
+                                      CanUserAddRows="False"
+                                      IsReadOnly="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Текущий тип"
+                                                        Binding="{Binding Name}"
+                                                        IsReadOnly="True"
+                                                        Width="*"/>
+                                    <DataGridTextColumn Header="Новое имя"
+                                                        Binding="{Binding NewName}"
+                                                        Width="*"/>
+                                    <DataGridTextColumn Header="Кол-во устройств"
+                                                        Binding="{Binding DevicesCount}"
+                                                        IsReadOnly="True"
+                                                        Width="120"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </GroupBox>
+
+                        <!-- Бренды -->
+                        <GroupBox Header="Бренды"
+                                  Grid.Column="1"
+                                  Margin="5,0,0,0">
+                            <DataGrid x:Name="BrandsGrid"
+                                      Margin="5"
+                                      AutoGenerateColumns="False"
+                                      CanUserAddRows="False"
+                                      IsReadOnly="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Текущий бренд"
+                                                        Binding="{Binding Name}"
+                                                        IsReadOnly="True"
+                                                        Width="*"/>
+                                    <DataGridTextColumn Header="Новое имя"
+                                                        Binding="{Binding NewName}"
+                                                        Width="*"/>
+                                    <DataGridTextColumn Header="Кол-во устройств"
+                                                        Binding="{Binding DevicesCount}"
+                                                        IsReadOnly="True"
+                                                        Width="120"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </GroupBox>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Border>
+
+        <!-- Общие кнопки сохранения/перезагрузки -->
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="0,10,0,0">
+            <Button Content="Сохранить"
+                    Width="120"
+                    Margin="0,0,10,0"
+                    Click="SaveButton_Click"
+                    Style="{DynamicResource GoldButtonStyle}"/>
+            <Button Content="Обновить"
+                    Width="120"
+                    Click="ReloadButton_Click"
+                    Style="{DynamicResource GoldButtonStyle}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

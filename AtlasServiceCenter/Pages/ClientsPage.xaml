@@ -1,0 +1,118 @@
+﻿<UserControl x:Class="AtlasServiceCenter.Pages.ClientsPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid Margin="10"
+          Background="{StaticResource CardBackgroundBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Верхняя панель -->
+        <Grid Grid.Row="0"
+              Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Заголовок + поиск -->
+            <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Center">
+                <TextBlock Text="Клиенты"
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Margin="0,0,20,0"/>
+
+                <TextBox x:Name="SearchBox"
+                         Width="220"
+                         Height="26"
+                         Margin="0,0,10,0"
+                         VerticalAlignment="Center"
+                         ToolTip="Поиск по ФИО, телефону или email"
+                         TextChanged="SearchBox_TextChanged"/>
+            </StackPanel>
+
+            <!-- Кнопки справа -->
+            <StackPanel Grid.Column="1"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center">
+
+                <Button Margin="0,0,8,0"
+                        MinWidth="110"
+                        Click="RefreshButton_Click"
+                        Style="{StaticResource GoldButtonStyle}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Icons/refresh.png"
+                               Width="16" Height="16"
+                               Margin="0,0,6,0"/>
+                        <TextBlock Text="Обновить"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Margin="0,0,8,0"
+                        MinWidth="130"
+                        Click="NewClientButton_Click"
+                        Style="{StaticResource GoldButtonStyle}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Icons/add.png"
+                               Width="16" Height="16"
+                               Margin="0,0,6,0"/>
+                        <TextBlock Text="Новый клиент"/>
+                    </StackPanel>
+                </Button>
+
+                <Button MinWidth="120"
+                        Click="DeleteClientButton_Click"
+                        Style="{StaticResource GoldButtonStyle}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Icons/delete.png"
+                               Width="16" Height="16"
+                               Margin="0,0,6,0"/>
+                        <TextBlock Text="Удалить"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <!-- Таблица клиентов -->
+        <DataGrid x:Name="ClientsGrid"
+                  Grid.Row="1"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  CanUserAddRows="False"
+                  HeadersVisibility="Column"
+                  SelectionMode="Single"
+                  SelectionUnit="FullRow"
+                  MouseDoubleClick="ClientsGrid_MouseDoubleClick"
+                  Background="{StaticResource CardBackgroundBrush}"
+                  GridLinesVisibility="Horizontal"
+                  BorderThickness="0"
+                  RowHeaderWidth="0">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID"
+                                    Binding="{Binding ClientId}"
+                                    Width="60"/>
+
+                <DataGridTextColumn Header="ФИО"
+                                    Binding="{Binding FullName}"
+                                    Width="*"/>
+
+                <DataGridTextColumn Header="Телефон"
+                                    Binding="{Binding Phone}"
+                                    Width="150"/>
+
+                <DataGridTextColumn Header="Email"
+                                    Binding="{Binding Email}"
+                                    Width="200"/>
+
+                <DataGridTextColumn Header="Заметки"
+                                    Binding="{Binding Notes}"
+                                    Width="220"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

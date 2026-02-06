@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="395b7c436e4943c6a52677352e5f14cb" Name="Diagram1">
+        <EntityTypeShape EntityType="AtlasServiceCenterModel.Bonuses" Width="1.5" PointX="5.25" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AtlasServiceCenterModel.Clients" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AtlasServiceCenterModel.Devices" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="AtlasServiceCenterModel.Employees" Width="1.5" PointX="3" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AtlasServiceCenterModel.OrderStatuses" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AtlasServiceCenterModel.Parts" Width="1.5" PointX="5.25" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AtlasServiceCenterModel.Penalties" Width="1.5" PointX="5.25" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AtlasServiceCenterModel.Positions" Width="1.5" PointX="0.75" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AtlasServiceCenterModel.RepairOrderParts" Width="1.5" PointX="7.5" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AtlasServiceCenterModel.RepairOrders" Width="1.5" PointX="5.25" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AtlasServiceCenterModel.RepairOrderWorks" Width="1.5" PointX="7.5" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AtlasServiceCenterModel.Roles" Width="1.5" PointX="6" PointY="23.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AtlasServiceCenterModel.SalaryPayments" Width="1.5" PointX="5.25" PointY="18.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AtlasServiceCenterModel.Users" Width="1.5" PointX="8.25" PointY="10.875" IsExpanded="true" />
+        <AssociationConnector Association="AtlasServiceCenterModel.FK_Bonuses_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="AtlasServiceCenterModel.FK_Devices_Clients" ManuallyRouted="false" />
+        <AssociationConnector Association="AtlasServiceCenterModel.FK_RepairOrders_Clients" ManuallyRouted="false" />
+        <AssociationConnector Association="AtlasServiceCenterModel.FK_RepairOrders_Devices" ManuallyRouted="false" />
+        <AssociationConnector Association="AtlasServiceCenterModel.FK_Employees_Positions" ManuallyRouted="false" />
+        <AssociationConnector Association="AtlasServiceCenterModel.FK_Penalties_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="AtlasServiceCenterModel.FK_RepairOrders_Manager" ManuallyRouted="false" />
+        <AssociationConnector Association="AtlasServiceCenterModel.FK_RepairOrders_Master" ManuallyRouted="false" />
+        <AssociationConnector Association="AtlasServiceCenterModel.FK_SalaryPayments_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="AtlasServiceCenterModel.FK_Users_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="AtlasServiceCenterModel.FK_RepairOrders_Statuses" ManuallyRouted="false" />
+        <AssociationConnector Association="AtlasServiceCenterModel.FK_RepairOrderParts_Parts" ManuallyRouted="false" />
+        <AssociationConnector Association="AtlasServiceCenterModel.FK_RepairOrderParts_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="AtlasServiceCenterModel.FK_RepairOrderWorks_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="AtlasServiceCenterModel.FK_Users_Roles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

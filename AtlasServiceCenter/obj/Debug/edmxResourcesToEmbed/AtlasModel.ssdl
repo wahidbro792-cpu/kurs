@@ -1,0 +1,422 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище AtlasServiceCenterModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Bonuses">
+    <Key>
+      <PropertyRef Name="BonusId" />
+    </Key>
+    <Property Name="BonusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeId" Type="int" Nullable="false" />
+    <Property Name="BonusDate" Type="date" Nullable="false" />
+    <Property Name="Amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="Reason" Type="nvarchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="Clients">
+    <Key>
+      <PropertyRef Name="ClientId" />
+    </Key>
+    <Property Name="ClientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="20" />
+    <Property Name="Email" Type="nvarchar" MaxLength="100" />
+    <Property Name="Notes" Type="nvarchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="Devices">
+    <Key>
+      <PropertyRef Name="DeviceId" />
+    </Key>
+    <Property Name="DeviceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClientId" Type="int" Nullable="false" />
+    <Property Name="DeviceType" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Brand" Type="nvarchar" MaxLength="50" />
+    <Property Name="Model" Type="nvarchar" MaxLength="50" />
+    <Property Name="SerialNumber" Type="nvarchar" MaxLength="50" />
+    <Property Name="Notes" Type="nvarchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="Employees">
+    <Key>
+      <PropertyRef Name="EmployeeId" />
+    </Key>
+    <Property Name="EmployeeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="PositionId" Type="int" Nullable="false" />
+    <Property Name="HireDate" Type="date" Nullable="false" />
+    <Property Name="FireDate" Type="date" />
+    <Property Name="BaseSalary" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OrderStatuses">
+    <Key>
+      <PropertyRef Name="StatusId" />
+    </Key>
+    <Property Name="StatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="OrderIndex" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Parts">
+    <Key>
+      <PropertyRef Name="PartId" />
+    </Key>
+    <Property Name="PartId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="SKU" Type="nvarchar" MaxLength="50" />
+    <Property Name="QuantityInStock" Type="int" Nullable="false" />
+    <Property Name="PurchasePrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="SalePrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Penalties">
+    <Key>
+      <PropertyRef Name="PenaltyId" />
+    </Key>
+    <Property Name="PenaltyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeId" Type="int" Nullable="false" />
+    <Property Name="PenaltyDate" Type="date" Nullable="false" />
+    <Property Name="Amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="Reason" Type="nvarchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="Positions">
+    <Key>
+      <PropertyRef Name="PositionId" />
+    </Key>
+    <Property Name="PositionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="RepairOrderParts">
+    <Key>
+      <PropertyRef Name="OrderPartId" />
+    </Key>
+    <Property Name="OrderPartId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrderId" Type="int" Nullable="false" />
+    <Property Name="PartId" Type="int" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+    <Property Name="PricePerUnit" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="LineTotal" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RepairOrders">
+    <Key>
+      <PropertyRef Name="OrderId" />
+    </Key>
+    <Property Name="OrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClientId" Type="int" Nullable="false" />
+    <Property Name="DeviceId" Type="int" Nullable="false" />
+    <Property Name="StatusId" Type="int" Nullable="false" />
+    <Property Name="ManagerId" Type="int" />
+    <Property Name="MasterId" Type="int" />
+    <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+    <Property Name="DueDate" Type="datetime" />
+    <Property Name="ClosedAt" Type="datetime" />
+    <Property Name="DiscountPct" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+    <Property Name="TotalAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="IsPaid" Type="bit" Nullable="false" />
+    <Property Name="IsIssued" Type="bit" Nullable="false" />
+    <Property Name="ProblemDesc" Type="nvarchar" MaxLength="500" />
+    <Property Name="Comment" Type="nvarchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="RepairOrderWorks">
+    <Key>
+      <PropertyRef Name="WorkId" />
+    </Key>
+    <Property Name="WorkId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrderId" Type="int" Nullable="false" />
+    <Property Name="WorkName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+    <Property Name="LineTotal" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="SalaryPayments">
+    <Key>
+      <PropertyRef Name="SalaryPaymentId" />
+    </Key>
+    <Property Name="SalaryPaymentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeId" Type="int" Nullable="false" />
+    <Property Name="PeriodStart" Type="date" Nullable="false" />
+    <Property Name="PeriodEnd" Type="date" Nullable="false" />
+    <Property Name="BaseSalary" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="BonusesTotal" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="PenaltiesTotal" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="FinalAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="PaymentDate" Type="date" Nullable="false" />
+    <Property Name="Comment" Type="nvarchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="RoleId" Type="int" Nullable="false" />
+    <Property Name="EmployeeId" Type="int" />
+  </EntityType>
+  <Association Name="FK_Bonuses_Employees">
+    <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+    <End Role="Bonuses" Type="Self.Bonuses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="EmployeeId" />
+      </Principal>
+      <Dependent Role="Bonuses">
+        <PropertyRef Name="EmployeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Devices_Clients">
+    <End Role="Clients" Type="Self.Clients" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Devices" Type="Self.Devices" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clients">
+        <PropertyRef Name="ClientId" />
+      </Principal>
+      <Dependent Role="Devices">
+        <PropertyRef Name="ClientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employees_Positions">
+    <End Role="Positions" Type="Self.Positions" Multiplicity="1" />
+    <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Positions">
+        <PropertyRef Name="PositionId" />
+      </Principal>
+      <Dependent Role="Employees">
+        <PropertyRef Name="PositionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Penalties_Employees">
+    <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+    <End Role="Penalties" Type="Self.Penalties" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="EmployeeId" />
+      </Principal>
+      <Dependent Role="Penalties">
+        <PropertyRef Name="EmployeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RepairOrderParts_Orders">
+    <End Role="RepairOrders" Type="Self.RepairOrders" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="RepairOrderParts" Type="Self.RepairOrderParts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RepairOrders">
+        <PropertyRef Name="OrderId" />
+      </Principal>
+      <Dependent Role="RepairOrderParts">
+        <PropertyRef Name="OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RepairOrderParts_Parts">
+    <End Role="Parts" Type="Self.Parts" Multiplicity="1" />
+    <End Role="RepairOrderParts" Type="Self.RepairOrderParts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Parts">
+        <PropertyRef Name="PartId" />
+      </Principal>
+      <Dependent Role="RepairOrderParts">
+        <PropertyRef Name="PartId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RepairOrders_Clients">
+    <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+    <End Role="RepairOrders" Type="Self.RepairOrders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clients">
+        <PropertyRef Name="ClientId" />
+      </Principal>
+      <Dependent Role="RepairOrders">
+        <PropertyRef Name="ClientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RepairOrders_Devices">
+    <End Role="Devices" Type="Self.Devices" Multiplicity="1" />
+    <End Role="RepairOrders" Type="Self.RepairOrders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Devices">
+        <PropertyRef Name="DeviceId" />
+      </Principal>
+      <Dependent Role="RepairOrders">
+        <PropertyRef Name="DeviceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RepairOrders_Manager">
+    <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+    <End Role="RepairOrders" Type="Self.RepairOrders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="EmployeeId" />
+      </Principal>
+      <Dependent Role="RepairOrders">
+        <PropertyRef Name="ManagerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RepairOrders_Master">
+    <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+    <End Role="RepairOrders" Type="Self.RepairOrders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="EmployeeId" />
+      </Principal>
+      <Dependent Role="RepairOrders">
+        <PropertyRef Name="MasterId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RepairOrders_Statuses">
+    <End Role="OrderStatuses" Type="Self.OrderStatuses" Multiplicity="1" />
+    <End Role="RepairOrders" Type="Self.RepairOrders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrderStatuses">
+        <PropertyRef Name="StatusId" />
+      </Principal>
+      <Dependent Role="RepairOrders">
+        <PropertyRef Name="StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RepairOrderWorks_Orders">
+    <End Role="RepairOrders" Type="Self.RepairOrders" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="RepairOrderWorks" Type="Self.RepairOrderWorks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RepairOrders">
+        <PropertyRef Name="OrderId" />
+      </Principal>
+      <Dependent Role="RepairOrderWorks">
+        <PropertyRef Name="OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SalaryPayments_Employees">
+    <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+    <End Role="SalaryPayments" Type="Self.SalaryPayments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="EmployeeId" />
+      </Principal>
+      <Dependent Role="SalaryPayments">
+        <PropertyRef Name="EmployeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_Employees">
+    <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="EmployeeId" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="EmployeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_Roles">
+    <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище AtlasServiceCenterModelContainer">
+    <EntitySet Name="Bonuses" EntityType="Self.Bonuses" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Devices" EntityType="Self.Devices" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OrderStatuses" EntityType="Self.OrderStatuses" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Parts" EntityType="Self.Parts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Penalties" EntityType="Self.Penalties" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Positions" EntityType="Self.Positions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RepairOrderParts" EntityType="Self.RepairOrderParts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RepairOrders" EntityType="Self.RepairOrders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RepairOrderWorks" EntityType="Self.RepairOrderWorks" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SalaryPayments" EntityType="Self.SalaryPayments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Bonuses_Employees" Association="Self.FK_Bonuses_Employees">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="Bonuses" EntitySet="Bonuses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Devices_Clients" Association="Self.FK_Devices_Clients">
+      <End Role="Clients" EntitySet="Clients" />
+      <End Role="Devices" EntitySet="Devices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employees_Positions" Association="Self.FK_Employees_Positions">
+      <End Role="Positions" EntitySet="Positions" />
+      <End Role="Employees" EntitySet="Employees" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Penalties_Employees" Association="Self.FK_Penalties_Employees">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="Penalties" EntitySet="Penalties" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RepairOrderParts_Orders" Association="Self.FK_RepairOrderParts_Orders">
+      <End Role="RepairOrders" EntitySet="RepairOrders" />
+      <End Role="RepairOrderParts" EntitySet="RepairOrderParts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RepairOrderParts_Parts" Association="Self.FK_RepairOrderParts_Parts">
+      <End Role="Parts" EntitySet="Parts" />
+      <End Role="RepairOrderParts" EntitySet="RepairOrderParts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RepairOrders_Clients" Association="Self.FK_RepairOrders_Clients">
+      <End Role="Clients" EntitySet="Clients" />
+      <End Role="RepairOrders" EntitySet="RepairOrders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RepairOrders_Devices" Association="Self.FK_RepairOrders_Devices">
+      <End Role="Devices" EntitySet="Devices" />
+      <End Role="RepairOrders" EntitySet="RepairOrders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RepairOrders_Manager" Association="Self.FK_RepairOrders_Manager">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="RepairOrders" EntitySet="RepairOrders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RepairOrders_Master" Association="Self.FK_RepairOrders_Master">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="RepairOrders" EntitySet="RepairOrders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RepairOrders_Statuses" Association="Self.FK_RepairOrders_Statuses">
+      <End Role="OrderStatuses" EntitySet="OrderStatuses" />
+      <End Role="RepairOrders" EntitySet="RepairOrders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RepairOrderWorks_Orders" Association="Self.FK_RepairOrderWorks_Orders">
+      <End Role="RepairOrders" EntitySet="RepairOrders" />
+      <End Role="RepairOrderWorks" EntitySet="RepairOrderWorks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SalaryPayments_Employees" Association="Self.FK_SalaryPayments_Employees">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="SalaryPayments" EntitySet="SalaryPayments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_Employees" Association="Self.FK_Users_Employees">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

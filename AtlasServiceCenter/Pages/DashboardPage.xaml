@@ -1,0 +1,169 @@
+﻿<UserControl x:Class="AtlasServiceCenter.Pages.DashboardPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок -->
+        <TextBlock Grid.Row="0"
+                   Text="Обзор сервиса"
+                   FontSize="22"
+                   FontWeight="Bold"
+                   Margin="0,0,0,10"/>
+
+        <!-- Карточки с показателями -->
+        <Grid Grid.Row="1" Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Активные заказы -->
+            <Border Grid.Column="0"
+                    Background="{StaticResource CardBackgroundBrush}"
+                    BorderBrush="{StaticResource GoldBrush}"
+                    BorderThickness="1"
+                    CornerRadius="6"
+                    Padding="10"
+                    Margin="0,0,10,0">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="6"
+                                      ShadowDepth="0"
+                                      Opacity="0.15"/>
+                </Border.Effect>
+                <StackPanel>
+                    <TextBlock Text="Активных заказов"
+                               Foreground="#FF6A645A"
+                               FontSize="13"/>
+                    <TextBlock x:Name="ActiveOrdersText"
+                               Foreground="#FF252525"
+                               FontSize="26"
+                               FontWeight="Bold"
+                               Margin="0,5,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Заказы за сегодня -->
+            <Border Grid.Column="1"
+                    Background="{StaticResource CardBackgroundBrush}"
+                    BorderBrush="{StaticResource GoldBrush}"
+                    BorderThickness="1"
+                    CornerRadius="6"
+                    Padding="10"
+                    Margin="0,0,10,0">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="6"
+                                      ShadowDepth="0"
+                                      Opacity="0.15"/>
+                </Border.Effect>
+                <StackPanel>
+                    <TextBlock Text="Заказов за сегодня"
+                               Foreground="#FF6A645A"
+                               FontSize="13"/>
+                    <TextBlock x:Name="TodayOrdersText"
+                               Foreground="#FF252525"
+                               FontSize="26"
+                               FontWeight="Bold"
+                               Margin="0,5,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Выручка за сегодня -->
+            <Border Grid.Column="2"
+                    Background="{StaticResource CardBackgroundBrush}"
+                    BorderBrush="{StaticResource GoldBrush}"
+                    BorderThickness="1"
+                    CornerRadius="6"
+                    Padding="10">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="6"
+                                      ShadowDepth="0"
+                                      Opacity="0.15"/>
+                </Border.Effect>
+                <StackPanel>
+                    <TextBlock Text="Выручка за сегодня"
+                               Foreground="#FF6A645A"
+                               FontSize="13"/>
+                    <TextBlock x:Name="TodayRevenueText"
+                               Foreground="#FF252525"
+                               FontSize="26"
+                               FontWeight="Bold"
+                               Margin="0,5,0,0"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!-- Нижняя часть: статусы и топ-мастера -->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Заказы по статусам -->
+            <GroupBox Header="Заказы по статусам"
+                      Grid.Column="0"
+                      Margin="0,0,10,0">
+                <GroupBox.BorderBrush>
+                    <SolidColorBrush Color="{StaticResource GoldColor}"/>
+                </GroupBox.BorderBrush>
+                <GroupBox.Background>
+                    <SolidColorBrush Color="#00FFFFFF"/>
+                </GroupBox.Background>
+
+                <Border Background="{StaticResource CardBackgroundBrush}"
+                        Padding="5"
+                        CornerRadius="4">
+                    <DataGrid x:Name="StatusSummaryGrid"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True"
+                              CanUserAddRows="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Статус"
+                                                Binding="{Binding StatusName}"
+                                                Width="*"/>
+                            <DataGridTextColumn Header="Количество"
+                                                Binding="{Binding Count}"
+                                                Width="100"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Border>
+            </GroupBox>
+
+            <!-- Топ мастера -->
+            <GroupBox Header="Топ мастеров (по закрытым заказам за 30 дней)"
+                      Grid.Column="1">
+                <GroupBox.BorderBrush>
+                    <SolidColorBrush Color="{StaticResource GoldColor}"/>
+                </GroupBox.BorderBrush>
+                <GroupBox.Background>
+                    <SolidColorBrush Color="#00FFFFFF"/>
+                </GroupBox.Background>
+
+                <Border Background="{StaticResource CardBackgroundBrush}"
+                        Padding="5"
+                        CornerRadius="4">
+                    <DataGrid x:Name="TopMastersGrid"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True"
+                              CanUserAddRows="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Мастер"
+                                                Binding="{Binding MasterName}"
+                                                Width="*"/>
+                            <DataGridTextColumn Header="Закрытых заказов"
+                                                Binding="{Binding ClosedCount}"
+                                                Width="150"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Border>
+            </GroupBox>
+        </Grid>
+    </Grid>
+</UserControl>

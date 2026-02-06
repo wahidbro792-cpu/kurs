@@ -1,0 +1,208 @@
+﻿<Window x:Class="AtlasServiceCenter.Windows.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:pages="clr-namespace:AtlasServiceCenter.Pages"
+        Title="Атлас Сервис Центр"
+        Height="700"
+        Width="1100"
+        WindowStartupLocation="CenterScreen"
+        MinHeight="600"
+        MinWidth="900"
+        Background="{StaticResource LightBackgroundBrush}">
+
+    <DockPanel>
+
+        <!-- Верхняя панель -->
+        <Border DockPanel.Dock="Top"
+                Background="{StaticResource NavBackgroundBrush}"
+                Padding="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Атлас"
+                Foreground="{StaticResource GoldBrush}"
+                FontSize="20"
+                FontWeight="Bold"
+                VerticalAlignment="Center"/>
+
+
+                <StackPanel Grid.Column="1"
+                            Orientation="Horizontal"
+                            VerticalAlignment="Center">
+
+                    <!-- Аватар текущего пользователя -->
+                    <Border Width="32"
+                            Height="32"
+                            BorderBrush="{StaticResource GoldBrush}"
+                            BorderThickness="1.2"
+                            Margin="0,0,8,0"
+                            ClipToBounds="True"
+                            CornerRadius="16"
+                            Background="#22FFFFFF">
+                        <Image x:Name="CurrentUserPhoto"
+                               Stretch="UniformToFill"/>
+                    </Border>
+
+                    <TextBlock Text="Пользователь: "
+                               Foreground="#FFEFEFEF"
+                               Margin="0,0,5,0"/>
+                    <TextBlock x:Name="UserLoginText"
+                               Foreground="#FFF6D47A"
+                               Margin="0,0,15,0"/>
+                    <TextBlock Text="Роль: "
+                               Foreground="#FFEFEFEF"
+                               Margin="0,0,5,0"/>
+                    <TextBlock x:Name="UserRoleText"
+                               Foreground="#FFCCE5FF"
+                               Margin="0,0,15,0"/>
+
+                    <Button Padding="10,3"
+                            Click="LogoutButton_Click"
+                            Style="{StaticResource GoldButtonStyle}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Icons/exit.png"
+                                   Width="16" Height="16"
+                                   Margin="0,0,6,0"/>
+                            <TextBlock Text="Выход"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Левая панель меню -->
+        <Border DockPanel.Dock="Left"
+                Background="{StaticResource NavBackgroundBrush}"
+                Width="210">
+            <StackPanel Margin="10"
+                        x:Name="MenuPanel">
+                <TextBlock Text="Навигация"
+                           Foreground="{StaticResource GoldBrush}"
+                           FontWeight="Bold"
+                           Margin="0,0,0,10"/>
+
+                <Button x:Name="BtnDashboard"
+                        Style="{StaticResource NavButtonStyle}"
+                        Click="BtnDashboard_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Icons/dashboard.png"
+                               Width="18" Height="18"
+                               Margin="0,0,8,0"/>
+                        <TextBlock Text="Панель"/>
+                    </StackPanel>
+                </Button>
+
+                <Button x:Name="BtnOrders"
+                        Style="{StaticResource NavButtonStyle}"
+                        Click="BtnOrders_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Icons/orders.png"
+                               Width="18" Height="18"
+                               Margin="0,0,8,0"/>
+                        <TextBlock Text="Заказы"/>
+                    </StackPanel>
+                </Button>
+
+                <Button x:Name="BtnCashier"
+                        Style="{StaticResource NavButtonStyle}"
+                        Click="BtnCashier_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Icons/cashier.png"
+                               Width="18" Height="18"
+                               Margin="0,0,8,0"/>
+                        <TextBlock Text="Касса"/>
+                    </StackPanel>
+                </Button>
+
+                <Button x:Name="BtnClients"
+                        Style="{StaticResource NavButtonStyle}"
+                        Click="BtnClients_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Icons/clients.png"
+                               Width="18" Height="18"
+                               Margin="0,0,8,0"/>
+                        <TextBlock Text="Клиенты"/>
+                    </StackPanel>
+                </Button>
+
+                <Button x:Name="BtnEmployees"
+                        Style="{StaticResource NavButtonStyle}"
+                        Click="BtnEmployees_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Icons/employees.png"
+                               Width="18" Height="18"
+                               Margin="0,0,8,0"/>
+                        <TextBlock Text="Сотрудники"/>
+                    </StackPanel>
+                </Button>
+
+                <Button x:Name="BtnUsers"
+                        Style="{StaticResource NavButtonStyle}"
+                        Click="BtnUsers_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Icons/users.png"
+                               Width="18" Height="18"
+                               Margin="0,0,8,0"/>
+                        <TextBlock Text="Пользователи"/>
+                    </StackPanel>
+                </Button>
+
+                <Button x:Name="BtnReports"
+                        Style="{StaticResource NavButtonStyle}"
+                        Click="BtnReports_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Icons/reports.png"
+                               Width="18" Height="18"
+                               Margin="0,0,8,0"/>
+                        <TextBlock Text="Отчёты"/>
+                    </StackPanel>
+                </Button>
+
+                <Button x:Name="BtnSalary"
+                        Style="{StaticResource NavButtonStyle}"
+                        Click="BtnSalary_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Icons/salary.png"
+                               Width="18" Height="18"
+                               Margin="0,0,8,0"/>
+                        <TextBlock Text="Зарплата"/>
+                    </StackPanel>
+                </Button>
+
+                <Button x:Name="BtnParts"
+                        Style="{StaticResource NavButtonStyle}"
+                        Click="BtnParts_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Icons/parts.png"
+                               Width="18" Height="18"
+                               Margin="0,0,8,0"/>
+                        <TextBlock Text="Склад"/>
+                    </StackPanel>
+                </Button>
+
+                <Button x:Name="BtnSettings"
+                        Style="{StaticResource NavButtonStyle}"
+                        Click="BtnSettings_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Icons/settings.png"
+                               Width="18" Height="18"
+                               Margin="0,0,8,0"/>
+                        <TextBlock Text="Настройки"/>
+                    </StackPanel>
+                </Button>
+
+            </StackPanel>
+        </Border>
+
+        <!-- Основная область -->
+        <Border Margin="10"
+                Background="{StaticResource CardBackgroundBrush}"
+                CornerRadius="6">
+            <ContentControl x:Name="MainContent"
+                            Margin="10"/>
+        </Border>
+    </DockPanel>
+</Window>

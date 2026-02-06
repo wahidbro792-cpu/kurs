@@ -1,0 +1,126 @@
+﻿<UserControl x:Class="AtlasServiceCenter.Pages.EmployeesPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Шапка: заголовок + фильтры и кнопки -->
+        <Grid Grid.Row="0" Margin="0,0,0,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Заголовок -->
+            <TextBlock Grid.Row="0"
+                       Text="Сотрудники"
+                       FontSize="20"
+                       FontWeight="Bold"
+                       Margin="0,0,0,6"/>
+
+            <!-- Фильтры + кнопки, которые могут переноситься -->
+            <WrapPanel Grid.Row="1"
+                       VerticalAlignment="Center"
+                       ItemHeight="30"
+                       ItemWidth="Auto">
+
+                <!-- Поиск -->
+                <StackPanel Orientation="Horizontal"
+                            Margin="0,0,10,0"
+                            VerticalAlignment="Center">
+                    <TextBlock Text="Поиск:"
+                               VerticalAlignment="Center"
+                               Margin="0,0,5,0"/>
+                    <TextBox x:Name="SearchBox"
+                             Width="220"
+                             Height="26"
+                             VerticalAlignment="Center"
+                             ToolTip="Поиск по ФИО"
+                             TextChanged="SearchBox_TextChanged"/>
+                </StackPanel>
+
+                <!-- Только работающие -->
+                <CheckBox x:Name="ActiveOnlyCheckBox"
+                          Content="Только работающие"
+                          IsChecked="True"
+                          Margin="0,0,10,0"
+                          VerticalAlignment="Center"
+                          Checked="ActiveOnlyCheckBox_Changed"
+                          Unchecked="ActiveOnlyCheckBox_Changed"/>
+
+                <!-- Обновить -->
+                <Button Margin="0,0,10,0"
+                        MinWidth="120"
+                        Click="RefreshButton_Click"
+                        Style="{StaticResource GoldButtonStyle}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Icons/refresh.png"
+                               Width="16" Height="16"
+                               Margin="0,0,6,0"/>
+                        <TextBlock Text="Обновить"/>
+                    </StackPanel>
+                </Button>
+
+                <!-- Новый сотрудник -->
+                <Button Margin="0,0,10,0"
+                        MinWidth="150"
+                        Click="NewEmployeeButton_Click"
+                        Style="{StaticResource GoldButtonStyle}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Icons/add.png"
+                               Width="16" Height="16"
+                               Margin="0,0,6,0"/>
+                        <TextBlock Text="Новый сотрудник"/>
+                    </StackPanel>
+                </Button>
+
+            </WrapPanel>
+        </Grid>
+
+        <!-- Таблица сотрудников -->
+        <DataGrid x:Name="EmployeesGrid"
+                  Grid.Row="1"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  CanUserAddRows="False"
+                  HeadersVisibility="Column"
+                  SelectionMode="Single"
+                  SelectionUnit="FullRow"
+                  MouseDoubleClick="EmployeesGrid_MouseDoubleClick">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID"
+                                    Binding="{Binding EmployeeId}"
+                                    Width="60"/>
+
+                <DataGridTextColumn Header="ФИО"
+                                    Binding="{Binding FullName}"
+                                    Width="*"/>
+
+                <DataGridTextColumn Header="Должность"
+                                    Binding="{Binding PositionName}"
+                                    Width="150"/>
+
+                <DataGridTextColumn Header="Принят"
+                                    Binding="{Binding HireDate, StringFormat=d}"
+                                    Width="100"/>
+
+                <DataGridTextColumn Header="Уволен"
+                                    Binding="{Binding FireDate, StringFormat=d}"
+                                    Width="100"/>
+
+                <DataGridTextColumn Header="Оклад"
+                                    Binding="{Binding BaseSalary}"
+                                    Width="100"/>
+
+                <DataGridCheckBoxColumn Header="Активен"
+                                        Binding="{Binding IsActive}"
+                                        Width="80"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,56 @@
+﻿<Window x:Class="AtlasServiceCenter.Windows.PenaltyEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Штраф сотруднику"
+        Height="260"
+        Width="420"
+        WindowStartupLocation="CenterOwner">
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Margin="0,0,0,10">
+            <TextBlock Text="Сотрудник:"/>
+            <TextBlock x:Name="EmployeeNameText"
+                       FontWeight="Bold"
+                       Margin="0,0,0,8"/>
+
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                <TextBlock Text="Дата штрафа:"
+                           Width="100"
+                           VerticalAlignment="Center"/>
+                <DatePicker x:Name="PenaltyDatePicker"
+                            Width="130"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                <TextBlock Text="Сумма:"
+                           Width="100"
+                           VerticalAlignment="Center"/>
+                <TextBox x:Name="AmountBox"
+                         Width="130"/>
+            </StackPanel>
+
+            <TextBlock Text="Причина:"/>
+            <TextBox x:Name="ReasonBox"
+                     Height="60"
+                     AcceptsReturn="True"
+                     TextWrapping="Wrap"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+            <Button Content="OK"
+                    Width="90"
+                    Margin="0,0,10,0"
+                    Click="OkButton_Click"/>
+            <Button Content="Отмена"
+                    Width="90"
+                    Click="CancelButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

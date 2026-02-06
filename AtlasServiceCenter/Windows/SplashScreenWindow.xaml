@@ -1,0 +1,47 @@
+﻿<Window x:Class="AtlasServiceCenter.Windows.SplashScreenWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Атлас Сервис Центр"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Width="800"
+        Height="450"
+        Background="Black"
+        AllowsTransparency="False"
+        ShowInTaskbar="False"
+        Topmost="True">
+
+    <Grid>
+        <!-- Видео целиком, без обрезки -->
+        <MediaElement x:Name="IntroMedia"
+                      LoadedBehavior="Manual"
+                      UnloadedBehavior="Stop"
+                      Stretch="Uniform"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
+                      MediaEnded="IntroMedia_MediaEnded"
+                      MediaFailed="IntroMedia_MediaFailed"/>
+
+        <!-- Компактная панель загрузки в правом нижнем углу -->
+        <Border Background="#80000000"
+                CornerRadius="6"
+                Padding="10"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Margin="10">
+            <StackPanel>
+                <TextBlock Text="Запуск приложения..."
+                           Foreground="White"
+                           FontSize="14"
+                           FontWeight="Bold"/>
+                <ProgressBar IsIndeterminate="True"
+                             Height="14"
+                             Margin="0,6,0,4"/>
+                <TextBlock Text="Пожалуйста, подождите"
+                           Foreground="LightGray"
+                           FontSize="11"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
