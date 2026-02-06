@@ -58,7 +58,7 @@ namespace AtlasServiceCenter.Windows
 
                     if (user.EmployeeId.HasValue)
                     {
-                        var employee = db.Employees.FirstOrDefault(e => e.EmployeeId == user.EmployeeId.Value);
+                        var employee = db.Employees.FirstOrDefault(emp => emp.EmployeeId == user.EmployeeId.Value);
                         if (employee != null && !employee.IsActive)
                         {
                             ErrorTextBlock.Text = "Доступ отключен: сотрудник уволен.";

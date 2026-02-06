@@ -9,7 +9,7 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid Margin="10"
+    <Grid Margin="12"
           Background="{StaticResource CardBackgroundBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -48,7 +48,8 @@
                     </StackPanel>
                 </Button>
 
-                <Button Click="NewOrderButton_Click"
+                <Button x:Name="NewOrderButton"
+                        Click="NewOrderButton_Click"
                         Margin="0,0,8,0"
                         MinWidth="110"
                         Style="{StaticResource GoldButtonStyle}">
@@ -72,7 +73,8 @@
                     </StackPanel>
                 </Button>
 
-                <Button Click="DeleteOrderButton_Click"
+                <Button x:Name="DeleteOrderButton"
+                        Click="DeleteOrderButton_Click"
                         MinWidth="110"
                         Style="{StaticResource GoldButtonStyle}">
                     <StackPanel Orientation="Horizontal">
@@ -86,9 +88,14 @@
         </Grid>
 
         <!-- Фильтры -->
-        <WrapPanel Grid.Row="1"
-                   Margin="0,0,0,10"
-                   VerticalAlignment="Center">
+        <Border Grid.Row="1"
+                Margin="0,0,0,12"
+                Padding="10"
+                Background="#FF141821"
+                CornerRadius="10"
+                BorderBrush="{StaticResource BorderBrush}"
+                BorderThickness="1">
+            <WrapPanel VerticalAlignment="Center">
 
             <StackPanel Orientation="Horizontal"
                         Margin="0,0,10,4"
@@ -151,7 +158,8 @@
                             Width="130"
                             SelectedDateChanged="DateTo_SelectedDateChanged"/>
             </StackPanel>
-        </WrapPanel>
+            </WrapPanel>
+        </Border>
 
         <!-- Таблица заказов -->
         <DataGrid x:Name="OrdersGrid"
@@ -172,28 +180,37 @@
                     <Setter Property="Background" Value="Transparent"/>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding StatusName}" Value="Принят">
-                            <Setter Property="Background" Value="#FFEFEFEF"/>
+                            <Setter Property="Background" Value="#FF232833"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding StatusName}" Value="Новый">
+                            <Setter Property="Background" Value="#FF232833"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding StatusName}" Value="В диагностике">
-                            <Setter Property="Background" Value="#FFFFF3C4"/>
+                            <Setter Property="Background" Value="#FF2B2A1F"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding StatusName}" Value="Диагностика">
-                            <Setter Property="Background" Value="#FFFFF3C4"/>
+                            <Setter Property="Background" Value="#FF2B2A1F"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding StatusName}" Value="Ожидает запчастей">
-                            <Setter Property="Background" Value="#FFFFE0B2"/>
+                            <Setter Property="Background" Value="#FF2C241B"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding StatusName}" Value="Ожидание запчастей">
+                            <Setter Property="Background" Value="#FF2C241B"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding StatusName}" Value="В работе">
-                            <Setter Property="Background" Value="#FFD6ECFF"/>
+                            <Setter Property="Background" Value="#FF1F2B3A"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding StatusName}" Value="Готов">
-                            <Setter Property="Background" Value="#FFDFF5DD"/>
+                            <Setter Property="Background" Value="#FF1F3324"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding StatusName}" Value="Выдан">
-                            <Setter Property="Background" Value="#FFDCEBFF"/>
+                            <Setter Property="Background" Value="#FF1C2536"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding StatusName}" Value="Отказ">
-                            <Setter Property="Background" Value="#FFFFD6D6"/>
+                            <Setter Property="Background" Value="#FF3A1F1F"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding StatusName}" Value="Отменен">
+                            <Setter Property="Background" Value="#FF3A1F1F"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>

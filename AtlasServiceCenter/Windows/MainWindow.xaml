@@ -15,18 +15,23 @@
         <!-- Верхняя панель -->
         <Border DockPanel.Dock="Top"
                 Background="{StaticResource NavBackgroundBrush}"
-                Padding="10">
+                Padding="14,10">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Text="Атлас"
-                Foreground="{StaticResource GoldBrush}"
-                FontSize="20"
-                FontWeight="Bold"
-                VerticalAlignment="Center"/>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="АТЛАС"
+                               Foreground="{StaticResource GoldBrush}"
+                               FontSize="20"
+                               FontWeight="Bold"/>
+                    <TextBlock Text="service center"
+                               FontSize="11"
+                               Foreground="{StaticResource MutedTextBrush}"
+                               Margin="0,2,0,0"/>
+                </StackPanel>
 
 
                 <StackPanel Grid.Column="1"
@@ -36,24 +41,24 @@
                     <!-- Аватар текущего пользователя -->
                     <Border Width="32"
                             Height="32"
-                            BorderBrush="{StaticResource GoldBrush}"
-                            BorderThickness="1.2"
+                            BorderBrush="{StaticResource BorderBrush}"
+                            BorderThickness="1"
                             Margin="0,0,8,0"
                             ClipToBounds="True"
                             CornerRadius="16"
-                            Background="#22FFFFFF">
+                            Background="#1FFFFFFF">
                         <Image x:Name="CurrentUserPhoto"
                                Stretch="UniformToFill"/>
                     </Border>
 
                     <TextBlock Text="Пользователь: "
-                               Foreground="#FFEFEFEF"
+                               Foreground="{StaticResource MutedTextBrush}"
                                Margin="0,0,5,0"/>
                     <TextBlock x:Name="UserLoginText"
                                Foreground="#FFF6D47A"
                                Margin="0,0,15,0"/>
                     <TextBlock Text="Роль: "
-                               Foreground="#FFEFEFEF"
+                               Foreground="{StaticResource MutedTextBrush}"
                                Margin="0,0,5,0"/>
                     <TextBlock x:Name="UserRoleText"
                                Foreground="#FFCCE5FF"
@@ -76,13 +81,13 @@
         <!-- Левая панель меню -->
         <Border DockPanel.Dock="Left"
                 Background="{StaticResource NavBackgroundBrush}"
-                Width="210">
-            <StackPanel Margin="10"
+                Width="230">
+            <StackPanel Margin="12"
                         x:Name="MenuPanel">
                 <TextBlock Text="Навигация"
                            Foreground="{StaticResource GoldBrush}"
                            FontWeight="Bold"
-                           Margin="0,0,0,10"/>
+                           Margin="0,4,0,14"/>
 
                 <Button x:Name="BtnDashboard"
                         Style="{StaticResource NavButtonStyle}"
@@ -198,11 +203,11 @@
         </Border>
 
         <!-- Основная область -->
-        <Border Margin="10"
+        <Border Margin="14"
                 Background="{StaticResource CardBackgroundBrush}"
-                CornerRadius="6">
+                CornerRadius="12">
             <ContentControl x:Name="MainContent"
-                            Margin="10"/>
+                            Margin="14"/>
         </Border>
     </DockPanel>
 </Window>
