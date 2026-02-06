@@ -22,9 +22,15 @@ namespace AtlasServiceCenter.Windows
         public decimal Price { get; private set; }
         public int Quantity { get; private set; }
 
-        public WorkEditWindow(RepairOrderWorks existing)
+        public WorkEditWindow(RepairOrderWorks existing, bool canEditPrice)
         {
             InitializeComponent();
+
+            PriceBox.IsReadOnly = !canEditPrice;
+            if (!canEditPrice)
+            {
+                PriceBox.Background = new SolidColorBrush(Color.FromRgb(245, 245, 245));
+            }
 
             if (existing != null)
             {
@@ -37,10 +43,14 @@ namespace AtlasServiceCenter.Windows
             {
                 Title = "Добавление работы";
                 QuantityBox.Text = "1";
+                if (!canEditPrice)
+                {
+                    PriceBox.Text = "0.00";
+                }
             }
         }
 
-        public WorkEditWindow() : this(null)
+        public WorkEditWindow() : this(null, true)
         {
         }
 
@@ -83,4 +93,3 @@ namespace AtlasServiceCenter.Windows
         }
     }
 }
-

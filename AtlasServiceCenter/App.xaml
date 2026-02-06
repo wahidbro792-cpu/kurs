@@ -5,13 +5,15 @@
     <Application.Resources>
         <ResourceDictionary>
 
-            <!-- Цвета под стиль C (светлый серо-мраморный фон + золото) -->
-            <Color x:Key="GoldColor">#FFC89A3A</Color>
-            <Color x:Key="GoldDarkColor">#FF8E6924</Color>
-            <Color x:Key="LightBackgroundColor">#FFF2F2F5</Color>
-            <Color x:Key="CardBackgroundColor">#FFFFFFFF</Color>
-            <Color x:Key="NavBackgroundColor">#FF25252A</Color>
-            <Color x:Key="NavButtonBackgroundColor">#FF33333A</Color>
+            <!-- Ультрасовременная тёмная палитра -->
+            <Color x:Key="GoldColor">#FF5B8CFF</Color>
+            <Color x:Key="GoldDarkColor">#FF3E6BFF</Color>
+            <Color x:Key="LightBackgroundColor">#FF0F1115</Color>
+            <Color x:Key="CardBackgroundColor">#FF1A1F28</Color>
+            <Color x:Key="NavBackgroundColor">#FF141821</Color>
+            <Color x:Key="NavButtonBackgroundColor">#FF1F2430</Color>
+            <Color x:Key="MutedTextColor">#FF9BA3B0</Color>
+            <Color x:Key="BorderColor">#FF2A3140</Color>
 
             <SolidColorBrush x:Key="GoldBrush" Color="{StaticResource GoldColor}"/>
             <SolidColorBrush x:Key="GoldDarkBrush" Color="{StaticResource GoldDarkColor}"/>
@@ -19,15 +21,17 @@
             <SolidColorBrush x:Key="CardBackgroundBrush" Color="{StaticResource CardBackgroundColor}"/>
             <SolidColorBrush x:Key="NavBackgroundBrush" Color="{StaticResource NavBackgroundColor}"/>
             <SolidColorBrush x:Key="NavButtonBackgroundBrush" Color="{StaticResource NavButtonBackgroundColor}"/>
-            <SolidColorBrush x:Key="NavButtonForegroundBrush" Color="White"/>
+            <SolidColorBrush x:Key="NavButtonForegroundBrush" Color="#FFE6E9EF"/>
+            <SolidColorBrush x:Key="MutedTextBrush" Color="{StaticResource MutedTextColor}"/>
+            <SolidColorBrush x:Key="BorderBrush" Color="{StaticResource BorderColor}"/>
 
-            <!-- Базовый золотой стиль кнопки -->
+            <!-- Базовый современный стиль кнопки -->
             <Style x:Key="GoldButtonStyle" TargetType="Button">
-                <Setter Property="Background" Value="{StaticResource CardBackgroundBrush}"/>
+                <Setter Property="Background" Value="{StaticResource GoldBrush}"/>
                 <Setter Property="BorderBrush" Value="{StaticResource GoldBrush}"/>
-                <Setter Property="BorderThickness" Value="1.5"/>
-                <Setter Property="Foreground" Value="Black"/>
-                <Setter Property="Padding" Value="10,4"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Padding" Value="14,6"/>
                 <Setter Property="FontSize" Value="13"/>
                 <Setter Property="FontWeight" Value="SemiBold"/>
                 <Setter Property="SnapsToDevicePixels" Value="True"/>
@@ -42,20 +46,19 @@
                                     Background="{TemplateBinding Background}"
                                     BorderBrush="{TemplateBinding BorderBrush}"
                                     BorderThickness="{TemplateBinding BorderThickness}"
-                                    CornerRadius="4"
+                                    CornerRadius="10"
                                     SnapsToDevicePixels="True">
                                 <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                                   RecognizesAccessKey="True"
-                                                  Margin="4,0,4,0"/>
+                                                  Margin="2,0,2,0"/>
                             </Border>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="border" Property="Background" Value="{StaticResource GoldBrush}"/>
-                                    <Setter Property="Foreground" Value="White"/>
+                                    <Setter TargetName="border" Property="Background" Value="{StaticResource GoldDarkBrush}"/>
                                 </Trigger>
                                 <Trigger Property="IsPressed" Value="True">
-                                    <Setter TargetName="border" Property="Background" Value="{StaticResource GoldDarkBrush}"/>
+                                    <Setter TargetName="border" Property="Background" Value="#FF2E56E6"/>
                                 </Trigger>
                                 <Trigger Property="IsEnabled" Value="False">
                                     <Setter TargetName="border" Property="Opacity" Value="0.5"/>
@@ -71,11 +74,86 @@
             <Style x:Key="NavButtonStyle"
                    TargetType="Button"
                    BasedOn="{StaticResource GoldButtonStyle}">
-                <Setter Property="Margin" Value="0,0,0,6"/>
+                <Setter Property="Margin" Value="0,0,0,8"/>
                 <Setter Property="HorizontalContentAlignment" Value="Left"/>
                 <Setter Property="Background" Value="{StaticResource NavButtonBackgroundBrush}"/>
-                <Setter Property="BorderBrush" Value="{StaticResource GoldBrush}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
                 <Setter Property="Foreground" Value="{StaticResource NavButtonForegroundBrush}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Padding" Value="12,8"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="border"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="10">
+                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                  RecognizesAccessKey="True"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="Background" Value="#FF273043"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="border" Property="Background" Value="#FF1C2333"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter TargetName="border" Property="Opacity" Value="0.5"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style TargetType="TextBlock">
+                <Setter Property="Foreground" Value="#FFE6E9EF"/>
+            </Style>
+
+            <Style TargetType="TextBox">
+                <Setter Property="Background" Value="#FF141821"/>
+                <Setter Property="Foreground" Value="#FFE6E9EF"/>
+                <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Padding" Value="8,4"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="TextBox">
+                            <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="8">
+                                <ScrollViewer Margin="0"
+                                              x:Name="PART_ContentHost"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style TargetType="ComboBox">
+                <Setter Property="Background" Value="#FF141821"/>
+                <Setter Property="Foreground" Value="#FFE6E9EF"/>
+                <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Padding" Value="6,2"/>
+            </Style>
+
+            <Style TargetType="DataGrid">
+                <Setter Property="Background" Value="{StaticResource CardBackgroundBrush}"/>
+                <Setter Property="Foreground" Value="#FFE6E9EF"/>
+                <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="RowBackground" Value="#FF1A1F28"/>
+                <Setter Property="AlternatingRowBackground" Value="#FF171B22"/>
+            </Style>
+
+            <Style TargetType="CheckBox">
+                <Setter Property="Foreground" Value="#FFE6E9EF"/>
             </Style>
 
         </ResourceDictionary>

@@ -19,11 +19,22 @@ namespace AtlasServiceCenter.Pages
 {
     public partial class SalaryPage : UserControl
     {
+        private readonly Users _currentUser;
         private List<Employees> _employees;
 
-        public SalaryPage()
+        public SalaryPage(Users currentUser)
         {
             InitializeComponent();
+            _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
+
+            if (!RoleHelper.CanAccessSalary(_currentUser.Roles?.Name))
+            {
+                IsEnabled = false;
+                MessageBox.Show("Доступ к зарплате есть только у владельца.",
+                    "Доступ запрещён", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             LoadEmployees();
             InitDefaultPeriod();
             CalculateCurrent();
