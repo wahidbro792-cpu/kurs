@@ -56,6 +56,16 @@ namespace AtlasServiceCenter.Windows
                         return;
                     }
 
+                    if (user.EmployeeId.HasValue)
+                    {
+                        var employee = db.Employees.FirstOrDefault(e => e.EmployeeId == user.EmployeeId.Value);
+                        if (employee != null && !employee.IsActive)
+                        {
+                            ErrorTextBlock.Text = "Доступ отключен: сотрудник уволен.";
+                            return;
+                        }
+                    }
+
                     // Успешный вход — открываем главное окно
                     var mainWindow = new MainWindow(user);
                     mainWindow.Show();

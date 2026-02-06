@@ -86,61 +86,63 @@ namespace AtlasServiceCenter.Windows
             BtnSalary.Visibility = Visibility.Visible;
             BtnSettings.Visibility = Visibility.Visible;
 
-            switch (roleName)
+            if (RoleHelper.IsOwner(roleName))
             {
-                case "Владелец":
-                    // Полный доступ
-                    break;
-
-                case "Администратор":
-                    // Всё, кроме зарплаты
-                    BtnSalary.Visibility = Visibility.Collapsed;
-                    break;
-
-                case "Менеджер":
-                    BtnEmployees.Visibility = Visibility.Collapsed;
-                    BtnParts.Visibility = Visibility.Collapsed;
-                    BtnUsers.Visibility = Visibility.Collapsed;
-                    BtnSalary.Visibility = Visibility.Collapsed;
-                    BtnSettings.Visibility = Visibility.Collapsed;
-                    // Кассу менеджеру не даём
-                    BtnCashier.Visibility = Visibility.Collapsed;
-                    break;
-
-                case "Мастер":
-                    BtnClients.Visibility = Visibility.Collapsed;
-                    BtnEmployees.Visibility = Visibility.Collapsed;
-                    BtnUsers.Visibility = Visibility.Collapsed;
-                    BtnReports.Visibility = Visibility.Collapsed;
-                    BtnSalary.Visibility = Visibility.Collapsed;
-                    BtnSettings.Visibility = Visibility.Collapsed;
-                    BtnCashier.Visibility = Visibility.Collapsed;
-                    // Склад (BtnParts) можно оставить или скрыть по желанию
-                    break;
-
-                case "Кассир":
-                    // Кассиру оставляем панель, заказы и кассу
-                    BtnClients.Visibility = Visibility.Collapsed;
-                    BtnEmployees.Visibility = Visibility.Collapsed;
-                    BtnParts.Visibility = Visibility.Collapsed;
-                    BtnUsers.Visibility = Visibility.Collapsed;
-                    BtnReports.Visibility = Visibility.Collapsed;
-                    BtnSalary.Visibility = Visibility.Collapsed;
-                    BtnSettings.Visibility = Visibility.Collapsed;
-                    break;
-
-                default:
-                    // Минимальный доступ
-                    BtnClients.Visibility = Visibility.Collapsed;
-                    BtnEmployees.Visibility = Visibility.Collapsed;
-                    BtnParts.Visibility = Visibility.Collapsed;
-                    BtnUsers.Visibility = Visibility.Collapsed;
-                    BtnReports.Visibility = Visibility.Collapsed;
-                    BtnSalary.Visibility = Visibility.Collapsed;
-                    BtnSettings.Visibility = Visibility.Collapsed;
-                    BtnCashier.Visibility = Visibility.Collapsed;
-                    break;
+                BtnCashier.Visibility = Visibility.Collapsed;
+                return;
             }
+
+            if (RoleHelper.IsAdmin(roleName))
+            {
+                BtnEmployees.Visibility = Visibility.Collapsed;
+                BtnSalary.Visibility = Visibility.Collapsed;
+                BtnCashier.Visibility = Visibility.Collapsed;
+                return;
+            }
+
+            if (RoleHelper.IsReceptionManager(roleName))
+            {
+                BtnEmployees.Visibility = Visibility.Collapsed;
+                BtnUsers.Visibility = Visibility.Collapsed;
+                BtnReports.Visibility = Visibility.Collapsed;
+                BtnSalary.Visibility = Visibility.Collapsed;
+                BtnSettings.Visibility = Visibility.Collapsed;
+                BtnParts.Visibility = Visibility.Collapsed;
+                BtnCashier.Visibility = Visibility.Collapsed;
+                return;
+            }
+
+            if (RoleHelper.IsMaster(roleName))
+            {
+                BtnClients.Visibility = Visibility.Collapsed;
+                BtnEmployees.Visibility = Visibility.Collapsed;
+                BtnUsers.Visibility = Visibility.Collapsed;
+                BtnReports.Visibility = Visibility.Collapsed;
+                BtnSalary.Visibility = Visibility.Collapsed;
+                BtnSettings.Visibility = Visibility.Collapsed;
+                BtnCashier.Visibility = Visibility.Collapsed;
+                return;
+            }
+
+            if (RoleHelper.IsCashier(roleName))
+            {
+                BtnEmployees.Visibility = Visibility.Collapsed;
+                BtnUsers.Visibility = Visibility.Collapsed;
+                BtnReports.Visibility = Visibility.Collapsed;
+                BtnSalary.Visibility = Visibility.Collapsed;
+                BtnSettings.Visibility = Visibility.Collapsed;
+                BtnParts.Visibility = Visibility.Collapsed;
+                return;
+            }
+
+            BtnClients.Visibility = Visibility.Collapsed;
+            BtnEmployees.Visibility = Visibility.Collapsed;
+            BtnParts.Visibility = Visibility.Collapsed;
+            BtnUsers.Visibility = Visibility.Collapsed;
+            BtnReports.Visibility = Visibility.Collapsed;
+            BtnSalary.Visibility = Visibility.Collapsed;
+            BtnSettings.Visibility = Visibility.Collapsed;
+            BtnCashier.Visibility = Visibility.Collapsed;
         }
 
         #region Навигация
@@ -153,7 +155,7 @@ namespace AtlasServiceCenter.Windows
 
         private void OpenClients() => MainContent.Content = new ClientsPage();
 
-        private void OpenEmployees() => MainContent.Content = new EmployeesPage();
+        private void OpenEmployees() => MainContent.Content = new EmployeesPage(_currentUser);
 
         private void OpenParts() => MainContent.Content = new PartsPage();
 
@@ -161,7 +163,7 @@ namespace AtlasServiceCenter.Windows
 
         private void OpenReports() => MainContent.Content = new ReportsPage();
 
-        private void OpenSalary() => MainContent.Content = new SalaryPage();
+        private void OpenSalary() => MainContent.Content = new SalaryPage(_currentUser);
 
         private void OpenSettings() => MainContent.Content = new SettingsPage();
 

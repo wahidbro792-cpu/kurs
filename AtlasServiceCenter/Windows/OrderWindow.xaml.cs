@@ -20,6 +20,7 @@ namespace AtlasServiceCenter.Windows
     {
         private int? _orderId;
         private readonly UserEntity _currentUser;
+        private bool _canEditPrices;
 
         public OrderWindow(int? orderId, UserEntity currentUser)
         {
@@ -241,58 +242,40 @@ namespace AtlasServiceCenter.Windows
         {
             var roleName = _currentUser.Roles?.Name;
 
-            bool fullAccess = roleName == "Владелец" ||
-                              roleName == "Администратор" ||
-                              roleName == "Менеджер";
+            bool canEditCore = RoleHelper.CanEditCoreOrderFields(roleName);
+            bool canEditStatus = RoleHelper.CanEditStatus(roleName);
+            bool canAssignMaster = RoleHelper.CanAssignMaster(roleName);
+            bool canEditDiscount = RoleHelper.CanEditDiscount(roleName);
+            bool canEditPrices = RoleHelper.CanEditPrices(roleName);
 
-            if (fullAccess)
-                return;
+            ClientComboBox.IsEnabled = canEditCore;
+            DeviceComboBox.IsEnabled = canEditCore;
+            StatusComboBox.IsEnabled = canEditStatus;
+            MasterComboBox.IsEnabled = canAssignMaster;
 
-            if (roleName == "Кассир")
+            DiscountTextBox.IsReadOnly = !canEditDiscount;
+            IsPaidCheckBox.IsEnabled = RoleHelper.IsOwner(roleName) || RoleHelper.IsCashier(roleName);
+            IsIssuedCheckBox.IsEnabled = RoleHelper.IsOwner(roleName) || RoleHelper.IsCashier(roleName);
+
+            ProblemTextBox.IsReadOnly = !canEditCore && !RoleHelper.IsMaster(roleName);
+            CommentTextBox.IsReadOnly = !canEditCore && !RoleHelper.IsMaster(roleName);
+
+            if (RoleHelper.IsMaster(roleName))
             {
-                ClientComboBox.IsEnabled = false;
-                DeviceComboBox.IsEnabled = false;
-                StatusComboBox.IsEnabled = false;
-                MasterComboBox.IsEnabled = false;
-                ProblemTextBox.IsReadOnly = true;
-
-                DiscountTextBox.IsReadOnly = false;
-                IsPaidCheckBox.IsEnabled = true;
-                IsIssuedCheckBox.IsEnabled = true;
-                CommentTextBox.IsReadOnly = false;
-
-                DisableWorksAndParts();
-            }
-            else if (roleName == "Мастер")
-            {
-                ClientComboBox.IsEnabled = false;
-                DeviceComboBox.IsEnabled = false;
-                DiscountTextBox.IsReadOnly = true;
-                IsPaidCheckBox.IsEnabled = false;
-                IsIssuedCheckBox.IsEnabled = false;
-
-                StatusComboBox.IsEnabled = true;
-                MasterComboBox.IsEnabled = false;
-                ProblemTextBox.IsReadOnly = false;
-                CommentTextBox.IsReadOnly = false;
-
                 EnableWorks();
-                DisableParts();
+                EnableParts();
+            }
+            else if (canEditCore)
+            {
+                EnableWorks();
+                EnableParts();
             }
             else
             {
-                ClientComboBox.IsEnabled = false;
-                DeviceComboBox.IsEnabled = false;
-                StatusComboBox.IsEnabled = false;
-                MasterComboBox.IsEnabled = false;
-                DiscountTextBox.IsReadOnly = true;
-                IsPaidCheckBox.IsEnabled = false;
-                IsIssuedCheckBox.IsEnabled = false;
-                ProblemTextBox.IsReadOnly = true;
-                CommentTextBox.IsReadOnly = true;
-
                 DisableWorksAndParts();
             }
+
+            _canEditPrices = canEditPrices;
         }
 
         private void DisableWorksAndParts()
@@ -306,9 +289,9 @@ namespace AtlasServiceCenter.Windows
             WorksGrid.IsEnabled = true;
         }
 
-        private void DisableParts()
+        private void EnableParts()
         {
-            PartsGrid.IsEnabled = false;
+            PartsGrid.IsEnabled = true;
         }
 
         #endregion
@@ -336,7 +319,7 @@ namespace AtlasServiceCenter.Windows
             if (!EnsureOrderSaved())
                 return;
 
-            var w = new WorkEditWindow(null);
+            var w = new WorkEditWindow(null, _canEditPrices);
             w.Owner = this;
             if (w.ShowDialog() != true)
                 return;
@@ -371,7 +354,7 @@ namespace AtlasServiceCenter.Windows
                 return;
             }
 
-            var w = new WorkEditWindow(selected);
+            var w = new WorkEditWindow(selected, _canEditPrices);
             w.Owner = this;
             if (w.ShowDialog() != true)
                 return;
@@ -450,7 +433,7 @@ namespace AtlasServiceCenter.Windows
                     return;
                 }
 
-                var dlg = new PartEditWindow(parts, null);
+                var dlg = new PartEditWindow(parts, null, _canEditPrices);
                 dlg.Owner = this;
                 if (dlg.ShowDialog() != true)
                     return;
@@ -510,7 +493,7 @@ namespace AtlasServiceCenter.Windows
 
                 db.SaveChanges();
 
-                var dlg = new PartEditWindow(new[] { part }.ToList(), orderPart);
+                var dlg = new PartEditWindow(new[] { part }.ToList(), orderPart, _canEditPrices);
                 dlg.Owner = this;
                 if (dlg.ShowDialog() != true)
                 {
