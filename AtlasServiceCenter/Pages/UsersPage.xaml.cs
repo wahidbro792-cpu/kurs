@@ -38,9 +38,7 @@ namespace AtlasServiceCenter.Pages
         private void ConfigureButtonsByRole(string roleName)
         {
             // Только Владелец и Администратор управляют пользователями
-            bool canManage =
-                string.Equals(roleName, "Владелец", StringComparison.OrdinalIgnoreCase) ||
-                string.Equals(roleName, "Администратор", StringComparison.OrdinalIgnoreCase);
+            bool canManage = RoleHelper.CanManageUsers(roleName);
 
             NewUserButton.IsEnabled = canManage;
             EditUserButton.IsEnabled = canManage;
@@ -265,8 +263,7 @@ namespace AtlasServiceCenter.Pages
 
         private bool IsOwnerOrAdmin(string roleName)
         {
-            return string.Equals(roleName, "Владелец", StringComparison.OrdinalIgnoreCase) ||
-                   string.Equals(roleName, "Администратор", StringComparison.OrdinalIgnoreCase);
+            return RoleHelper.CanManageUsers(roleName);
         }
 
         public class UserRow

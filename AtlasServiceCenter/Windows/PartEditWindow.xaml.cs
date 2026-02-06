@@ -35,9 +35,15 @@ namespace AtlasServiceCenter.Windows
             public int QuantityInStock { get; set; }
         }
 
-        public PartEditWindow(List<Parts> availableParts, RepairOrderParts existing)
+        public PartEditWindow(List<Parts> availableParts, RepairOrderParts existing, bool canEditPrice)
         {
             InitializeComponent();
+
+            PriceBox.IsReadOnly = !canEditPrice;
+            if (!canEditPrice)
+            {
+                PriceBox.Background = new SolidColorBrush(Color.FromRgb(245, 245, 245));
+            }
 
             if (availableParts == null)
                 availableParts = new List<Parts>();

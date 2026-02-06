@@ -138,6 +138,7 @@
     <Compile Include="RepairOrderWorks.cs">
       <DependentUpon>AtlasModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="RoleHelper.cs" />
     <Compile Include="Roles.cs">
       <DependentUpon>AtlasModel.tt</DependentUpon>
     </Compile>

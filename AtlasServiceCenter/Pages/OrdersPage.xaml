@@ -107,7 +107,8 @@
             <StackPanel Orientation="Horizontal"
                         Margin="0,0,10,4"
                         VerticalAlignment="Center">
-                <TextBlock Text="Статус:"
+                <TextBlock x:Name="StatusFilterLabel"
+                           Text="Статус:"
                            VerticalAlignment="Center"
                            Margin="0,0,5,0"/>
                 <ComboBox x:Name="StatusFilter"
@@ -119,7 +120,8 @@
             <StackPanel Orientation="Horizontal"
                         Margin="0,0,10,4"
                         VerticalAlignment="Center">
-                <TextBlock Text="Мастер:"
+                <TextBlock x:Name="MasterFilterLabel"
+                           Text="Мастер:"
                            VerticalAlignment="Center"
                            Margin="0,0,5,0"/>
                 <ComboBox x:Name="MasterFilter"
@@ -165,6 +167,37 @@
                   GridLinesVisibility="Horizontal"
                   BorderThickness="0"
                   RowHeaderWidth="0">
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding StatusName}" Value="Принят">
+                            <Setter Property="Background" Value="#FFEFEFEF"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding StatusName}" Value="В диагностике">
+                            <Setter Property="Background" Value="#FFFFF3C4"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding StatusName}" Value="Диагностика">
+                            <Setter Property="Background" Value="#FFFFF3C4"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding StatusName}" Value="Ожидает запчастей">
+                            <Setter Property="Background" Value="#FFFFE0B2"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding StatusName}" Value="В работе">
+                            <Setter Property="Background" Value="#FFD6ECFF"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding StatusName}" Value="Готов">
+                            <Setter Property="Background" Value="#FFDFF5DD"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding StatusName}" Value="Выдан">
+                            <Setter Property="Background" Value="#FFDCEBFF"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding StatusName}" Value="Отказ">
+                            <Setter Property="Background" Value="#FFFFD6D6"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="№"
                                     Binding="{Binding OrderId}"
@@ -198,4 +231,3 @@
         </DataGrid>
     </Grid>
 </UserControl>
-

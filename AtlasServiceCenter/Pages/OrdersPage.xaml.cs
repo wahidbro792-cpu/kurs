@@ -24,12 +24,18 @@ namespace AtlasServiceCenter.Pages
 
         // Полный список заказов, загруженный из БД
         private List<OrderRow> _allOrders;
+        private bool _canCreateOrders;
+        private bool _canDeleteOrders;
+        private bool _canFilterByMaster;
+        private bool _lockStatusFilter;
+        private string[] _lockedStatusOptions;
 
         public OrdersPage(UserEntity currentUser)
         {
             InitializeComponent();
             _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
 
+            ConfigureAccessByRole();
             LoadOrders();
         }
 
@@ -64,9 +70,23 @@ namespace AtlasServiceCenter.Pages
                     var baseQuery = db.RepairOrders.AsQueryable();
 
                     // Мастер видит только свои заказы
-                    if (roleName == "Мастер" && employeeId.HasValue)
+                    if (RoleHelper.IsMaster(roleName) && employeeId.HasValue)
                     {
                         baseQuery = baseQuery.Where(o => o.MasterId == employeeId.Value);
+                    }
+
+                    if (RoleHelper.IsCashier(roleName))
+                    {
+                        var readyNames = new[] { "Готов", "К выдаче", "Готов к выдаче" };
+                        var readyStatusIds = db.OrderStatuses
+                            .Where(s => readyNames.Contains(s.Name))
+                            .Select(s => s.StatusId)
+                            .ToList();
+
+                        if (readyStatusIds.Any())
+                        {
+                            baseQuery = baseQuery.Where(o => readyStatusIds.Contains(o.StatusId));
+                        }
                     }
 
                     var data =
@@ -129,6 +149,23 @@ namespace AtlasServiceCenter.Pages
                     StatusFilter.ItemsSource = statuses;
                     StatusFilter.SelectedIndex = 0;
 
+                    if (_lockStatusFilter && _lockedStatusOptions != null)
+                    {
+                        int lockedIndex = -1;
+                        foreach (var statusOption in _lockedStatusOptions)
+                        {
+                            lockedIndex = statuses.IndexOf(statusOption);
+                            if (lockedIndex >= 0)
+                                break;
+                        }
+
+                        if (lockedIndex >= 0)
+                            StatusFilter.SelectedIndex = lockedIndex;
+
+                        StatusFilter.IsEnabled = false;
+                        StatusFilterLabel.Foreground = Brushes.Gray;
+                    }
+
                     // Мастера (по должности "Мастер")
                     var masters = (from e in db.Employees
                                    join p in db.Positions on e.PositionId equals p.PositionId
@@ -155,6 +192,37 @@ namespace AtlasServiceCenter.Pages
         #endregion
 
         #region Фильтрация
+
+        private void ConfigureAccessByRole()
+        {
+            var roleName = _currentUser.Roles?.Name;
+
+            _canCreateOrders = RoleHelper.CanCreateOrders(roleName);
+            _canDeleteOrders = RoleHelper.CanDeleteOrders(roleName);
+            _canFilterByMaster = RoleHelper.IsOwner(roleName) ||
+                                 RoleHelper.IsAdmin(roleName) ||
+                                 RoleHelper.IsReceptionManager(roleName);
+
+            if (RoleHelper.IsCashier(roleName))
+            {
+                _lockStatusFilter = true;
+                _lockedStatusOptions = new[] { "Готов", "К выдаче", "Готов к выдаче" };
+            }
+
+            ApplyAccessToControls();
+        }
+
+        private void ApplyAccessToControls()
+        {
+            NewOrderButton.IsEnabled = _canCreateOrders;
+            DeleteOrderButton.IsEnabled = _canDeleteOrders;
+
+            if (!_canFilterByMaster)
+            {
+                MasterFilter.Visibility = Visibility.Collapsed;
+                MasterFilterLabel.Visibility = Visibility.Collapsed;
+            }
+        }
 
         private void ApplyFilters()
         {
@@ -297,9 +365,7 @@ namespace AtlasServiceCenter.Pages
         {
             var roleName = _currentUser.Roles?.Name;
 
-            return roleName == "Владелец"
-                   || roleName == "Администратор"
-                   || roleName == "Менеджер";
+            return RoleHelper.IsAdmin(roleName) || RoleHelper.IsReceptionManager(roleName);
         }
 
         private void DeleteSelectedOrder()

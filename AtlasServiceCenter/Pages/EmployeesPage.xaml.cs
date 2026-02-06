@@ -20,12 +20,22 @@ namespace AtlasServiceCenter.Pages
 {
     public partial class EmployeesPage : UserControl
     {
+        private readonly Users _currentUser;
         private ObservableCollection<EmployeeRow> _allEmployees;
 
-        public EmployeesPage()
+        public EmployeesPage(Users currentUser)
         {
             InitializeComponent();
+            _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
+
+            ConfigureAccessByRole();
             LoadEmployees();
+        }
+
+        private void ConfigureAccessByRole()
+        {
+            bool canManage = RoleHelper.CanManageEmployees(_currentUser.Roles?.Name);
+            NewEmployeeButton.IsEnabled = canManage;
         }
 
         private void LoadEmployees()
@@ -113,6 +123,13 @@ namespace AtlasServiceCenter.Pages
             if (row == null)
                 return;
 
+            if (!RoleHelper.CanManageEmployees(_currentUser.Roles?.Name))
+            {
+                MessageBox.Show("Просмотр карточек сотрудников доступен только владельцу.",
+                    "Доступ запрещён", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             var wnd = new EmployeeWindow(row.EmployeeId);
             wnd.Owner = Window.GetWindow(this);
             wnd.ShowDialog();
@@ -122,6 +139,13 @@ namespace AtlasServiceCenter.Pages
 
         private void NewEmployeeButton_Click(object sender, RoutedEventArgs e)
         {
+            if (!RoleHelper.CanManageEmployees(_currentUser.Roles?.Name))
+            {
+                MessageBox.Show("Добавлять сотрудников может только владелец.",
+                    "Доступ запрещён", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             var wnd = new EmployeeWindow(null);
             wnd.Owner = Window.GetWindow(this);
             wnd.ShowDialog();
@@ -141,5 +165,4 @@ namespace AtlasServiceCenter.Pages
         }
     }
 }
-
 
